@@ -14,6 +14,7 @@ extension UdacityClient {
         static let restAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
         static let UdacityAPIHost = "www.udacity.com"
         static let APIPath = "/api"
+        static let UdacitySignUpWebsite = "https://www.udacity.com/account/auth#!/signup"
     }
     
     struct Methods {

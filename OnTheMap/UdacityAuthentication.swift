@@ -1,5 +1,5 @@
 //
-//  UdacityConvenience.swift
+//  UdacityAuthentication.swift
 //  OnTheMap
 //
 //  Created by Vojtěch Böhm on 05/11/2017.
@@ -7,13 +7,13 @@
 //
 
 import Foundation
+import UIKit // UNFORTUNATELY I MUST IMPORT UIKIT FOR UIAPPLICATION OPEN TO SEPERATE THIS LOGIC FROM THE LOGINVIEWCONTROLLER
 
 // Here are authenticate functions that use template functions from UdacityClient; seperated to another file varmaintain readability
 
 extension UdacityClient {
     
-    func loginUser(username: String, password: String, loginCompletionHandler: @escaping (Bool,Error?) -> Void) {
-        
+    func loginUser(username: String, password: String, loginCompletionHandler: @escaping (Bool,Error?) -> Void) { // Send over the username and password
         let body = [
             "udacity":[
                 "username":username,
@@ -60,5 +60,14 @@ extension UdacityClient {
             
             sessionCompletionHandler(true, sessionID, key, nil)
         }
+    }
+    
+    func signUp() {
+        guard let url = URL(string: Constants.UdacitySignUpWebsite) else {
+            print("Sign Up page doesn't exist or has been moved")
+            return
+        }
+        
+        UIApplication.shared.openURL(url)
     }
 }

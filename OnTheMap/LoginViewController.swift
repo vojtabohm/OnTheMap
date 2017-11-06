@@ -49,10 +49,14 @@ class LoginViewController: UIViewController {
         UdacityClient.shared.loginUser(username: usernameField.text!, password: passwordField.text!) { (success, error) in
             if success {
                 self.completeLogin()
-            } else {    
+            } else {
                 self.displayError(error?.localizedDescription)
             }
         }
+    }
+    
+    @IBAction func signUpPressed(_ sender: Any) {
+        UdacityClient.shared.signUp()
     }
     
     //MARK: Functions

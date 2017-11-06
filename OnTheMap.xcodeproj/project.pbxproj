@@ -14,7 +14,7 @@
 		2F225C4A1FAF852900DFAB51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F225C481FAF852900DFAB51 /* LaunchScreen.storyboard */; };
 		2F225C571FAF925500DFAB51 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C561FAF925500DFAB51 /* Constants.swift */; };
 		2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */; };
-		2F225C5D1FAF93F000DFAB51 /* UdacityConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C5C1FAF93F000DFAB51 /* UdacityConvenience.swift */; };
+		2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		2F225C4B1FAF852900DFAB51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F225C561FAF925500DFAB51 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
-		2F225C5C1FAF93F000DFAB51 /* UdacityConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityConvenience.swift; sourceTree = "<group>"; };
+		2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAuthentication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 			children = (
 				2F225C561FAF925500DFAB51 /* Constants.swift */,
 				2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */,
-				2F225C5C1FAF93F000DFAB51 /* UdacityConvenience.swift */,
+				2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 				2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */,
 				2F225C421FAF852900DFAB51 /* LoginViewController.swift in Sources */,
 				2F225C401FAF852900DFAB51 /* AppDelegate.swift in Sources */,
-				2F225C5D1FAF93F000DFAB51 /* UdacityConvenience.swift in Sources */,
+				2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */,
 				2F225C571FAF925500DFAB51 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,6 +342,7 @@
 				2F225C501FAF852900DFAB51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
