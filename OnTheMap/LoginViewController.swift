@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var logoImageView: UIImageView!
     @IBOutlet var debugLabel: UILabel!
     @IBOutlet var loginButton: UIButton!
+    @IBOutlet var signUpButton: UIButton!
     
     //MARK: Properties
     
@@ -63,8 +64,9 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         debugLabel.text = ""
-        let vc = storyboard?.instantiateViewController(withIdentifier: "MainNavigationViewController") as! UINavigationController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! UITabBarController
         present(vc, animated: true, completion: nil)
+        setUIEnabled(true)
     }
     
     func displayError(_ errorString: String?) {
@@ -138,6 +140,7 @@ extension LoginViewController {
         usernameField.isEnabled = enabled
         passwordField.isEnabled = enabled
         loginButton.isEnabled = enabled
+        signUpButton.isEnabled = enabled
         
         if enabled {
             loginButton.alpha = 1.0

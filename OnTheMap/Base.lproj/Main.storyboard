@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -92,7 +93,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xt-4p-NuB">
                                         <rect key="frame" x="0.0" y="342" width="288" height="206"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -117,6 +118,7 @@
                         <outlet property="loginButton" destination="JJj-Go-iyW" id="xet-uj-H5z"/>
                         <outlet property="logoImageView" destination="xbp-Dz-M70" id="4D0-4y-iak"/>
                         <outlet property="passwordField" destination="sGH-1p-23n" id="U07-ql-NI1"/>
+                        <outlet property="signUpButton" destination="ZXy-HP-R2T" id="Q8m-pT-HkZ"/>
                         <outlet property="usernameField" destination="Wmc-Rt-7Qk" id="cdn-qf-C7g"/>
                     </connections>
                 </viewController>
@@ -127,24 +129,26 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="1131" y="35"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="8Q2-ea-Tpd">
+        <!--Item-->
+        <scene sceneID="SIy-v7-o88">
             <objects>
-                <navigationController storyboardIdentifier="MainNavigationViewController" id="UTu-Sz-U33" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4fo-Fj-MXJ">
+                <navigationController id="FuD-i9-m3b" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="YNh-9x-Qba"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eX2-1y-MvU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="0rn-v2-n9G" kind="relationship" relationship="rootViewController" id="2CP-Lg-P45"/>
+                        <segue destination="BAX-ER-vP0" kind="relationship" relationship="rootViewController" id="TIr-H9-7I6"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jbW-a2-KQr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xd9-Qm-eMI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1241" y="35"/>
+            <point key="canvasLocation" x="2933" y="266"/>
         </scene>
-        <!--Item 2-->
+        <!--View Controller-->
         <scene sceneID="xZg-uH-toC">
             <objects>
                 <viewController id="BAX-ER-vP0" sceneMemberID="viewController">
@@ -157,16 +161,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="JQy-Ju-9bh"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="" image="icon_listview-selected" id="JQy-Ju-9bh"/>
+                    <navigationItem key="navigationItem" id="ULe-Qz-ooh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeo-UI-kDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3257" y="198"/>
+            <point key="canvasLocation" x="3696" y="219"/>
         </scene>
-        <!--Item 1-->
+        <!--On The Map-->
         <scene sceneID="j3o-js-Sf1">
             <objects>
-                <viewController id="zll-Md-Rrm" sceneMemberID="viewController">
+                <viewController id="zll-Md-Rrm" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zkM-z7-xBv"/>
                         <viewControllerLayoutGuide type="bottom" id="eG1-au-2Pp"/>
@@ -176,16 +181,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="wuj-bE-FiR"/>
+                    <tabBarItem key="tabBarItem" title="" image="icon_mapview-deselected" id="wuj-bE-FiR"/>
+                    <navigationItem key="navigationItem" title="On The Map" id="lKb-Ai-qvO">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="BFn-NC-Foo">
+                            <connections>
+                                <action selector="logOut:" destination="zll-Md-Rrm" id="aVa-SR-qfw"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="icon_addpin" id="GxD-6e-FsP"/>
+                            <barButtonItem image="icon_refresh" id="gYB-3V-46a"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addButton" destination="GxD-6e-FsP" id="da6-An-rFN"/>
+                        <outlet property="logOutButton" destination="BFn-NC-Foo" id="0Nb-BJ-h2B"/>
+                        <outlet property="refreshButton" destination="gYB-3V-46a" id="28J-hf-zjx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYm-tc-PYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3257" y="-466"/>
+            <point key="canvasLocation" x="3664" y="-503"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="bzs-9g-AeP">
+            <objects>
+                <navigationController id="Ciy-Vd-e1d" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="fjh-Gi-hW0"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bG3-rf-7n9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zll-Md-Rrm" kind="relationship" relationship="rootViewController" id="Pdd-hf-3Ec"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PnI-Yw-PbD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2966" y="-479"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="QbI-ik-H8d">
             <objects>
-                <tabBarController id="0rn-v2-n9G" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarViewController" id="0rn-v2-n9G" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="GQZ-AA-2aJ"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="mvd-p3-hmy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -193,8 +231,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="zll-Md-Rrm" kind="relationship" relationship="viewControllers" id="vg2-cT-bWB"/>
-                        <segue destination="BAX-ER-vP0" kind="relationship" relationship="viewControllers" id="nkp-JG-fE6"/>
+                        <segue destination="Ciy-Vd-e1d" kind="relationship" relationship="viewControllers" id="Qw2-tE-qak"/>
+                        <segue destination="FuD-i9-m3b" kind="relationship" relationship="viewControllers" id="NOh-MB-fC1"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gB9-Qc-hTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -203,6 +241,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_addpin" width="24" height="24"/>
+        <image name="icon_listview-selected" width="75" height="50"/>
+        <image name="icon_mapview-deselected" width="75" height="50"/>
+        <image name="icon_refresh" width="24" height="24"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
 </document>

@@ -18,6 +18,6 @@ extension UdacityClient {
     }
     
     struct Methods {
-        static let GetSession = "/session"
+        static let Session = "/session"
     }
 }

@@ -37,7 +37,7 @@ extension UdacityClient {
     }
     
     func postSession(username: String, password: String, body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
-        taskForPOST(parameters: [:], method: Methods.GetSession, body: body) { (result, error) in
+        taskForPOST(parameters: [:], method: Methods.Session, body: body) { (result, error) in
             guard error == nil else {
                 sessionCompletionHandler(false, nil, nil, error!.localizedDescription)
                 return
@@ -69,5 +69,23 @@ extension UdacityClient {
         }
         
         UIApplication.shared.openURL(url)
+    }
+    
+    func logOut(logOutCompletionHandler: @escaping (Bool,Error?) -> Void) {
+        var request = URLRequest(url: UdacityClient.shared.URLFromParameters(parameters: [:], withPathExtension: Methods.Session))
+        request.httpMethod = "DELETE"
+        request.setValue(sessionID, forHTTPHeaderField: "X-XSRF-TOKEN")
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                logOutCompletionHandler(false, error)
+                return
+            }
+            
+            DispatchQueue.main.async {
+                logOutCompletionHandler(true, nil)
+            }
+        }
+        task.resume()
     }
 }
