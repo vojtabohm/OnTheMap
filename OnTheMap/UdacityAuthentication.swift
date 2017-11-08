@@ -9,7 +9,7 @@
 import Foundation
 import UIKit // UNFORTUNATELY I MUST IMPORT UIKIT FOR UIAPPLICATION OPEN TO SEPERATE THIS LOGIC FROM THE LOGINVIEWCONTROLLER
 
-// Here are authenticate functions that use template functions from UdacityClient; seperated to another file varmaintain readability
+// Here are authenticate functions that use template functions from UdacityClient; seperated to another file to maintain readability
 
 extension UdacityClient {
     
@@ -21,7 +21,12 @@ extension UdacityClient {
             ]
         ]
         
-        postSession(username: username, password: password, body: body) { (success, sessionID, key, errorString) in
+        let headers = [
+            "Accept":"application/json",
+            "Content-Type":"application/json"
+        ]
+        
+        postSession(username: username, password: password, headers: headers, body: body) { (success, sessionID, key, errorString) in
             if success {
                 self.sessionID = sessionID!
                 self.userID = key!
@@ -36,8 +41,8 @@ extension UdacityClient {
         }
     }
     
-    func postSession(username: String, password: String, body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
-        taskForPOST(parameters: [:], method: Methods.Session, body: body) { (result, error) in
+    func postSession(username: String, password: String, headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
+        let _ = taskFor(method: .POST, parameters: [:], apiPath: ApiMethods.Session, headers: headers, body: body, isFromUdacity: true) { (result, error) in
             guard error == nil else {
                 sessionCompletionHandler(false, nil, nil, error!.localizedDescription)
                 return
@@ -53,12 +58,26 @@ extension UdacityClient {
             }
             
             guard let sessionID = session["id"] as? String, let key = account["key"] as? String else {
-                print(session, account)
                 sessionCompletionHandler(false, nil, nil, "Cannot find id key or account id key")
                 return
             }
             
             sessionCompletionHandler(true, sessionID, key, nil)
+        }
+    }
+    
+    func logOut(logOutCompletionHandler: @escaping (Bool,Error?) -> Void) {
+        let headers: [String:Any] = ["X-XSRF-TOKEN":sessionID!]
+        
+        let _ = taskFor(method: .DELETE, parameters: [:], apiPath: ApiMethods.Session, headers: headers, body: [:], isFromUdacity: true) { (result, error) in
+            guard error == nil else {
+                logOutCompletionHandler(false, error)
+                return
+            }
+
+            DispatchQueue.main.async {
+                logOutCompletionHandler(true, nil)
+            }
         }
     }
     
@@ -69,23 +88,5 @@ extension UdacityClient {
         }
         
         UIApplication.shared.openURL(url)
-    }
-    
-    func logOut(logOutCompletionHandler: @escaping (Bool,Error?) -> Void) {
-        var request = URLRequest(url: UdacityClient.shared.URLFromParameters(parameters: [:], withPathExtension: Methods.Session))
-        request.httpMethod = "DELETE"
-        request.setValue(sessionID, forHTTPHeaderField: "X-XSRF-TOKEN")
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                logOutCompletionHandler(false, error)
-                return
-            }
-            
-            DispatchQueue.main.async {
-                logOutCompletionHandler(true, nil)
-            }
-        }
-        task.resume()
     }
 }

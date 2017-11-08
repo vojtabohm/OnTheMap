@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
     
@@ -18,10 +19,14 @@ class MapViewController: UIViewController {
     @IBOutlet var logOutButton: UIBarButtonItem!
     @IBOutlet var refreshButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
+    @IBOutlet var mapView: MKMapView!
     
     //MARK: Life Cycle
     
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
     
     //MARK: Actions
     
@@ -32,9 +37,7 @@ class MapViewController: UIViewController {
             if success {
                 self.dismiss(animated: true, completion: nil)
             } else {
-                let vc = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(vc, animated: true, completion: nil)
+                self.showOKAlert(title: "Error", message: (error?.localizedDescription)!)
                 self.setUIEnabled(true)
             }
         }
@@ -42,10 +45,7 @@ class MapViewController: UIViewController {
     
     //MARK: Functions
     
-    
-    
 }
-
 
 //MARK: - MapViewController (Configure)
 extension MapViewController {
@@ -54,5 +54,11 @@ extension MapViewController {
         refreshButton.isEnabled = enabled
         addButton.isEnabled = enabled
         self.tabBarController?.tabBar.items?[1].isEnabled = enabled
+    }
+    
+    func showOKAlert(title: String, message: String) {
+        let vc = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(vc, animated: true, completion: nil)
     }
 }

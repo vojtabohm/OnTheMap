@@ -23,65 +23,6 @@ class UdacityClient: NSObject {
     
     //MARK: Functions
     
-    func taskForGET(parameters: [String:Any], method: String, _ handler: @escaping (_ data: AnyObject?, _ error: Error?) -> Void) {
-        let request = URLRequest(url: URLFromParameters(parameters: parameters, withPathExtension: method))
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            func sendError(_ error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                handler(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
-            }
-            
-            guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
-                return
-            }
-            
-            guard let data = data else {
-                sendError("No data was returned by the request!")
-                return
-            }
-
-            self.parseData(data, parseCompletionHandler: handler)
-        }
-        
-        task.resume()
-    }
-    
-    func taskForPOST(parameters: [String:Any], method: String, body: [String:Any], _ handler: @escaping (_ data: AnyObject?, _ error: Error?) -> Void) {
-        var request = URLRequest(url: URLFromParameters(parameters: parameters, withPathExtension: method))
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            func sendError(_ error: String) {
-                print(error)
-                let userInfo = [NSLocalizedDescriptionKey : error]
-                handler(nil, NSError(domain: "taskForPOSTMethod", code: 1, userInfo: userInfo))
-            }
-            
-            guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
-                return
-            }
-            
-            guard let data = data else {
-                sendError("No data was returned by the request!")
-                return
-            }
-            
-            let range = Range(5..<data.count)
-            let newData = data.subdata(in: range)
-            
-            self.parseData(newData, parseCompletionHandler: handler)
-        }
-        
-        task.resume()
-    }
-    
     func URLFromParameters(parameters: [String:Any], withPathExtension: String? = nil) -> URL {
         var components = URLComponents()
         components.scheme = "https"
@@ -110,5 +51,49 @@ class UdacityClient: NSObject {
         }
         
         parseCompletionHandler(result, nil)
+    }
+    
+    //Generalized task function for every method listed in UdacityClient.Methods
+    func taskFor(method: Methods, parameters: [String:Any], apiPath: String, headers: [String:Any], body: [String:Any], isFromUdacity: Bool, _ handler: @escaping (_ data: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
+        
+        var request = URLRequest(url: URLFromParameters(parameters: parameters, withPathExtension: apiPath))
+        request.httpMethod = method.rawValue
+        
+        for (key, value) in headers {
+            request.addValue("\(value)", forHTTPHeaderField: key)
+        }
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            func sendError(_ error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                handler(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
+            }
+            
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!)")
+                return
+            }
+            
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            
+            //If the response comes from Udacity, skip first 5 chars (security server-sided reasons)
+            if isFromUdacity {
+                let range = Range(5..<data.count)
+                let newData = data.subdata(in: range)
+                
+                self.parseData(newData, parseCompletionHandler: handler)
+            } else {
+                self.parseData(data, parseCompletionHandler: handler)
+            }
+        }
+        
+        task.resume()
+        return task
     }
 }

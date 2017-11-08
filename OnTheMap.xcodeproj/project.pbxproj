@@ -16,7 +16,6 @@
 		2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */; };
 		2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */; };
 		2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */; };
-		2F80F8B21FB1C87600D1E24F /* MapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80F8B11FB1C87600D1E24F /* MapClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +30,6 @@
 		2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAuthentication.swift; sourceTree = "<group>"; };
 		2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		2F80F8B11FB1C87600D1E24F /* MapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +86,6 @@
 				2F225C561FAF925500DFAB51 /* Constants.swift */,
 				2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */,
 				2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */,
-				2F80F8B11FB1C87600D1E24F /* MapClient.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -176,7 +173,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F80F8B21FB1C87600D1E24F /* MapClient.swift in Sources */,
 				2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */,
 				2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */,
 				2F225C421FAF852900DFAB51 /* LoginViewController.swift in Sources */,

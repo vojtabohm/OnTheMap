@@ -179,7 +179,18 @@
                     <view key="view" contentMode="scaleToFill" id="IJ4-jq-6Fo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-BJ-x2e">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Zzm-BJ-x2e" firstAttribute="top" secondItem="zkM-z7-xBv" secondAttribute="bottom" id="bH1-UG-nlO"/>
+                            <constraint firstAttribute="trailing" secondItem="Zzm-BJ-x2e" secondAttribute="trailing" id="dR6-4s-WZY"/>
+                            <constraint firstItem="eG1-au-2Pp" firstAttribute="top" secondItem="Zzm-BJ-x2e" secondAttribute="bottom" id="e3Z-CY-edt"/>
+                            <constraint firstItem="Zzm-BJ-x2e" firstAttribute="leading" secondItem="IJ4-jq-6Fo" secondAttribute="leading" id="hMD-xN-f5z"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="icon_mapview-deselected" id="wuj-bE-FiR"/>
                     <navigationItem key="navigationItem" title="On The Map" id="lKb-Ai-qvO">
@@ -196,12 +207,13 @@
                     <connections>
                         <outlet property="addButton" destination="GxD-6e-FsP" id="da6-An-rFN"/>
                         <outlet property="logOutButton" destination="BFn-NC-Foo" id="0Nb-BJ-h2B"/>
+                        <outlet property="mapView" destination="Zzm-BJ-x2e" id="3wi-8D-Hpu"/>
                         <outlet property="refreshButton" destination="gYB-3V-46a" id="28J-hf-zjx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYm-tc-PYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3664" y="-503"/>
+            <point key="canvasLocation" x="3663.75" y="-503.87323943661971"/>
         </scene>
         <!--Item-->
         <scene sceneID="bzs-9g-AeP">

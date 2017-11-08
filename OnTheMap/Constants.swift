@@ -17,7 +17,14 @@ extension UdacityClient {
         static let UdacitySignUpWebsite = "https://www.udacity.com/account/auth#!/signup"
     }
     
-    struct Methods {
+    struct ApiMethods {
         static let Session = "/session"
+    }
+    
+    enum Methods: String {
+        case GET = "GET"
+        case POST = "POST"
+        case DELETE = "DELETE"
+        case PUT = "PUT"
     }
 }
