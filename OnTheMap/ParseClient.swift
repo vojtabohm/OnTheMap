@@ -1,32 +1,29 @@
 //
-//  UdacityClient.swift
+//  ParseClient.swift
 //  OnTheMap
 //
-//  Created by Vojtěch Böhm on 05/11/2017.
+//  Created by Vojtěch Böhm on 09/11/2017.
 //  Copyright © 2017 Vojtěch Böhm. All rights reserved.
 //
 
 import Foundation
 
-class UdacityClient: Client {
+class ParseClient: Client {
     
     //MARK: Properties
     
-    static let shared = UdacityClient()
-    
-    var sessionID: String? = nil
-    var userID: String? = nil
+    static let shared = ParseClient()
     
     //MARK: Life Cycle
     
-    private override init() {}
+    private override init() { }
     
     //MARK: Functions
     
-    override func URLFromParameters(parameters: [String:Any], withPathExtension: String? = nil) -> URL {
+    override func URLFromParameters(parameters: [String : Any], withPathExtension: String?) -> URL {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = Constants.UdacityAPIHost
+        components.host = Constants.ParseAPIHost
         components.path = Constants.APIPath + (withPathExtension ?? "")
         
         if !parameters.isEmpty {

@@ -25,7 +25,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        downloadAnnotations()
     }
     
     //MARK: Actions
@@ -45,6 +45,20 @@ class MapViewController: UIViewController {
     
     //MARK: Functions
     
+    func downloadAnnotations() {
+        ParseClient.shared.downloadLocations { (success, error) in
+            if success {
+                //smth
+            } else {
+                //smth
+            }
+        }
+        
+        // ParseClient.shared.downloadLocations()
+        // Parse Locations into StudentLocations array of dictionaries
+        // Convert the array of dictionaries to array of annotations
+        // Add annotations to the map
+    }
 }
 
 //MARK: - MapViewController (Configure)

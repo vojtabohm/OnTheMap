@@ -42,7 +42,7 @@ extension UdacityClient {
     }
     
     func postSession(username: String, password: String, headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
-        let _ = taskFor(method: .POST, parameters: [:], apiPath: ApiMethods.Session, headers: headers, body: body, isFromUdacity: true) { (result, error) in
+        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: body, isFromUdacity: true) { (result, error) in
             guard error == nil else {
                 sessionCompletionHandler(false, nil, nil, error!.localizedDescription)
                 return
@@ -69,7 +69,7 @@ extension UdacityClient {
     func logOut(logOutCompletionHandler: @escaping (Bool,Error?) -> Void) {
         let headers: [String:Any] = ["X-XSRF-TOKEN":sessionID!]
         
-        let _ = taskFor(method: .DELETE, parameters: [:], apiPath: ApiMethods.Session, headers: headers, body: [:], isFromUdacity: true) { (result, error) in
+        let _ = taskFor(method: .DELETE, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: [:], isFromUdacity: true) { (result, error) in
             guard error == nil else {
                 logOutCompletionHandler(false, error)
                 return
@@ -83,7 +83,6 @@ extension UdacityClient {
     
     func signUp() {
         guard let url = URL(string: Constants.UdacitySignUpWebsite) else {
-            print("Sign Up page doesn't exist or has been moved")
             return
         }
         
