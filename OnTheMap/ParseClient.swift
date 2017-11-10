@@ -14,6 +14,8 @@ class ParseClient: Client {
     
     static let shared = ParseClient()
     
+    var studentLocations: [StudentLocation]? = nil
+    
     //MARK: Life Cycle
     
     private override init() { }

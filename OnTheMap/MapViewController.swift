@@ -25,6 +25,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         downloadAnnotations()
     }
     
@@ -48,16 +49,35 @@ class MapViewController: UIViewController {
     func downloadAnnotations() {
         ParseClient.shared.downloadLocations { (success, error) in
             if success {
-                //smth
+                self.addAnnotationsToMap()
             } else {
-                //smth
+                self.showOKAlert(title: "Failed to download Locations", message: error!)
             }
         }
+    }
+    
+    func addAnnotationsToMap() {
+        var annotations = [MKPointAnnotation]()
         
-        // ParseClient.shared.downloadLocations()
-        // Parse Locations into StudentLocations array of dictionaries
-        // Convert the array of dictionaries to array of annotations
-        // Add annotations to the map
+        for student in ParseClient.shared.studentLocations! {
+            let latitude = CLLocationDegrees(student.latitude)
+            let longitude = CLLocationDegrees(student.longitude)
+            
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            
+            let firstName = student.firstName
+            let lastName = student.lastName
+            let mediaURL = student.mediaURL
+            
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            annotation.title = "\(firstName) \(lastName)"
+            annotation.subtitle = mediaURL
+            
+            annotations.append(annotation)
+        }
+        
+        mapView.addAnnotations(annotations)
     }
 }
 
@@ -74,5 +94,25 @@ extension MapViewController {
         let vc = UIAlertController(title: title, message: message, preferredStyle: .alert)
         vc.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(vc, animated: true, completion: nil)
+    }
+}
+
+//MARK: - MapViewController (MKMapViewDelegate)
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+        pinView.canShowCallout = true
+        pinView.pinTintColor = UIColor.blue
+        pinView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let urlString = view.annotation?.subtitle as? String, (urlString.contains("http://") || urlString.contains("https://")), let url = URL(string: urlString) else {
+            showOKAlert(title: "Error", message: "Invalid URL")
+            return
+        }
+        
+        UIApplication.shared.openURL(url)
     }
 }
