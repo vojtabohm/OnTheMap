@@ -22,7 +22,7 @@ class ParseClient: Client {
     
     override func URLFromParameters(parameters: [String : Any], withPathExtension: String?) -> URL {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = "http"
         components.host = Constants.ParseAPIHost
         components.path = Constants.APIPath + (withPathExtension ?? "")
         

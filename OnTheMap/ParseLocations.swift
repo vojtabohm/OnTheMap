@@ -17,13 +17,12 @@ extension ParseClient {
         ]
         
         let headers = [
-            "Connection":"close",
             "X-Parse-Application-Id":Constants.parseApplicationID,
             "X-Parse-REST-API-Key":Constants.restAPIKey
         ]
         
-        let _ = taskFor(method: .GET, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], isFromUdacity: false) { (result, error) in
-            print(result) // THIS INITIALLY IS NIL BECAUSE OF THE STUPID ERROR
+        let _ = taskFor(method: .POST, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], isFromUdacity: false) { (result, error) in
+            
         }
         
     }
