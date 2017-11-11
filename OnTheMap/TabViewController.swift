@@ -14,9 +14,27 @@ class TabViewController: UIViewController {
     //MARK: Outlets
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var loadingView: UIView!
     
     //MARK: Life Cycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ParseClient.shared.delegates.append(self)
+        
+        if ParseClient.shared.state == .loading {
+            loadingView.isHidden = false
+        } else {
+            loadingView.isHidden = true
+        }
+    }
+}
+
+//MARK: - TabViewController (UI)
+extension TabViewController {
+    func setLoading(enabled: Bool) {
+        loadingView.isHidden = !(enabled)
+    }
 }
 
 //MARK: - TabViewController (UITableViewDelegate)
@@ -49,5 +67,25 @@ extension TabViewController: UITableViewDataSource {
         cell.studentLocation = ParseClient.shared.studentLocations?[indexPath.row]
         
         return cell
+    }
+}
+
+//MARK: - TabViewController (ParseClientDelegate)
+extension TabViewController: ParseClientDelegate {
+    func changedState(_ state: ParseClient.State) {
+        switch state {
+        case .loading:
+            setLoading(enabled: true)
+        case .error:
+            setLoading(enabled: false)
+            showOKAlert(title: "Error", message: (ParseClient.shared.error?.localizedDescription)!)
+        default:
+            return
+        }
+    }
+    
+    func finishedDownloading() {
+        setLoading(enabled: false)
+        tableView.reloadData()
     }
 }

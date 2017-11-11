@@ -37,22 +37,23 @@ class LoginViewController: UIViewController {
     //MARK: Actions
     
     @IBAction func loginPressed(_ sender: Any) {
-        userDidTapView(self)
-        setUIEnabled(false)
-        
-        guard !usernameField.text!.isEmpty && !passwordField.text!.isEmpty else {
-            debugLabel.text = "Username or Password empty"
-            setUIEnabled(true)
-            return
-        }
-        
-        UdacityClient.shared.loginUser(username: usernameField.text!, password: passwordField.text!) { (success, error) in
-            if success {
-                self.completeLogin()
-            } else {
-                self.displayError(error?.localizedDescription)
-            }
-        }
+        completeLogin()
+//        userDidTapView(self)
+//        setUIEnabled(false)
+//        
+//        guard !usernameField.text!.isEmpty && !passwordField.text!.isEmpty else {
+//            debugLabel.text = "Username or Password empty"
+//            setUIEnabled(true)
+//            return
+//        }
+//        
+//        UdacityClient.shared.loginUser(username: usernameField.text!, password: passwordField.text!) { (success, error) in
+//            if success {
+//                self.completeLogin()
+//            } else {
+//                self.displayError(error?.localizedDescription)
+//            }
+//        }
     }
     
     @IBAction func signUpPressed(_ sender: Any) {

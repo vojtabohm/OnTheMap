@@ -133,7 +133,7 @@
         <!--Tab View Controller-->
         <scene sceneID="xZg-uH-toC">
             <objects>
-                <viewController id="BAX-ER-vP0" customClass="TabViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TabViewController" id="BAX-ER-vP0" customClass="TabViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ub8-Kz-1Io"/>
                         <viewControllerLayoutGuide type="bottom" id="cP4-5J-QB4"/>
@@ -185,18 +185,36 @@
                                     <outlet property="delegate" destination="BAX-ER-vP0" id="Slr-Bo-jlD"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t9u-qo-beZ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8sH-ee-zSe">
+                                        <rect key="frame" x="150" y="217" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="8sH-ee-zSe" firstAttribute="centerY" secondItem="t9u-qo-beZ" secondAttribute="centerY" id="YSi-SH-3XR"/>
+                                    <constraint firstItem="8sH-ee-zSe" firstAttribute="centerX" secondItem="t9u-qo-beZ" secondAttribute="centerX" id="jLy-a6-KGZ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="t9u-qo-beZ" secondAttribute="trailing" id="3uw-55-nCf"/>
                             <constraint firstAttribute="trailing" secondItem="WKh-il-dGQ" secondAttribute="trailing" id="9xB-KW-bwm"/>
+                            <constraint firstItem="cP4-5J-QB4" firstAttribute="top" secondItem="t9u-qo-beZ" secondAttribute="bottom" id="IKv-5x-WrK"/>
                             <constraint firstItem="WKh-il-dGQ" firstAttribute="leading" secondItem="XLP-wo-KBu" secondAttribute="leading" id="eAm-ha-poX"/>
+                            <constraint firstItem="t9u-qo-beZ" firstAttribute="leading" secondItem="XLP-wo-KBu" secondAttribute="leading" id="hvb-PK-9rs"/>
                             <constraint firstItem="cP4-5J-QB4" firstAttribute="top" secondItem="WKh-il-dGQ" secondAttribute="bottom" id="if9-K9-jV6"/>
                             <constraint firstItem="WKh-il-dGQ" firstAttribute="top" secondItem="Ub8-Kz-1Io" secondAttribute="bottom" constant="-64" id="rnm-st-gq2"/>
+                            <constraint firstItem="t9u-qo-beZ" firstAttribute="top" secondItem="Ub8-Kz-1Io" secondAttribute="bottom" id="uPn-RI-Q0z"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" tag="1" title="" image="icon_listview-selected" id="JQy-Ju-9bh"/>
                     <navigationItem key="navigationItem" id="ULe-Qz-ooh"/>
                     <connections>
+                        <outlet property="loadingView" destination="t9u-qo-beZ" id="ILK-55-F2n"/>
                         <outlet property="tableView" destination="WKh-il-dGQ" id="sRJ-sq-9eV"/>
                     </connections>
                 </viewController>
@@ -207,7 +225,7 @@
         <!--On The Map-->
         <scene sceneID="j3o-js-Sf1">
             <objects>
-                <viewController id="zll-Md-Rrm" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="zll-Md-Rrm" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zkM-z7-xBv"/>
                         <viewControllerLayoutGuide type="bottom" id="eG1-au-2Pp"/>
@@ -219,9 +237,27 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Zzm-BJ-x2e">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8C6-5f-aOP">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3bE-hG-ojw">
+                                        <rect key="frame" x="142" y="209" width="37" height="37"/>
+                                        <color key="tintColor" red="0.0056016976009999999" green="0.70667058230000002" blue="0.89660948510000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.1764705882" alpha="0.61400363869863017" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="3bE-hG-ojw" firstAttribute="centerY" secondItem="8C6-5f-aOP" secondAttribute="centerY" id="CpC-UB-5Ky"/>
+                                    <constraint firstItem="3bE-hG-ojw" firstAttribute="centerX" secondItem="8C6-5f-aOP" secondAttribute="centerX" id="WMb-q4-V2p"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="eG1-au-2Pp" firstAttribute="top" secondItem="8C6-5f-aOP" secondAttribute="bottom" id="05Y-VN-bAx"/>
+                            <constraint firstItem="8C6-5f-aOP" firstAttribute="top" secondItem="zkM-z7-xBv" secondAttribute="bottom" id="Ciw-lc-LHd"/>
+                            <constraint firstAttribute="trailing" secondItem="8C6-5f-aOP" secondAttribute="trailing" id="F4f-Ue-n6a"/>
+                            <constraint firstItem="8C6-5f-aOP" firstAttribute="leading" secondItem="IJ4-jq-6Fo" secondAttribute="leading" id="LhJ-py-f8t"/>
                             <constraint firstItem="Zzm-BJ-x2e" firstAttribute="top" secondItem="zkM-z7-xBv" secondAttribute="bottom" id="bH1-UG-nlO"/>
                             <constraint firstAttribute="trailing" secondItem="Zzm-BJ-x2e" secondAttribute="trailing" id="dR6-4s-WZY"/>
                             <constraint firstItem="eG1-au-2Pp" firstAttribute="top" secondItem="Zzm-BJ-x2e" secondAttribute="bottom" id="e3Z-CY-edt"/>
@@ -232,13 +268,13 @@
                     <navigationItem key="navigationItem" title="On The Map" id="lKb-Ai-qvO"/>
                     <connections>
                         <outlet property="addButton" destination="GxD-6e-FsP" id="da6-An-rFN"/>
+                        <outlet property="loadingView" destination="8C6-5f-aOP" id="YCM-7O-uJ2"/>
                         <outlet property="mapView" destination="Zzm-BJ-x2e" id="3wi-8D-Hpu"/>
-                        <outlet property="refreshButton" destination="gYB-3V-46a" id="28J-hf-zjx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYm-tc-PYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2974" y="-297"/>
+            <point key="canvasLocation" x="2973.75" y="-297.88732394366195"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ei7-yW-aJF">
@@ -254,7 +290,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QEI-Ed-uyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1427" y="63"/>
+            <point key="canvasLocation" x="1481" y="35"/>
         </scene>
         <!--On The Map-->
         <scene sceneID="QbI-ik-H8d">
@@ -268,7 +304,11 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="icon_addpin" id="GxD-6e-FsP"/>
-                            <barButtonItem image="icon_refresh" id="gYB-3V-46a"/>
+                            <barButtonItem image="icon_refresh" id="gYB-3V-46a">
+                                <connections>
+                                    <action selector="reloadData:" destination="0rn-v2-n9G" id="ZUj-Kr-b8V"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="mvd-p3-hmy">

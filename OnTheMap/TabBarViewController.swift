@@ -17,6 +17,13 @@ class TabBarViewController: UITabBarController {
     @IBOutlet var refreshButton: UIBarButtonItem!
     @IBOutlet var addButton: UIBarButtonItem!
     
+    //MARK: Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
     //MARK: Actions
     
     @IBAction func logOut(_ sender: Any) {
@@ -28,6 +35,18 @@ class TabBarViewController: UITabBarController {
             } else {
                 self.showOKAlert(title: "Error", message: (error?.localizedDescription)!)
                 self.setUIEnabled(true)
+            }
+        }
+    }
+    
+    @IBAction func reloadData(_ sender: Any) {
+        //loading
+        ParseClient.shared.downloadLocations { (success, error) in
+            if success {
+                //stop loading
+            } else {
+                //self.showOKAlert(title: "Error", message: error!)
+                //stop loading
             }
         }
     }

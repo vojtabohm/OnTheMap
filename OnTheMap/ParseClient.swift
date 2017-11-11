@@ -8,13 +8,38 @@
 
 import Foundation
 
+protocol ParseClientDelegate {
+    func changedState(_ state: ParseClient.State)
+    func finishedDownloading()
+}
+
 class ParseClient: Client {
+    
+    enum State {
+        case loading
+        case ready
+        case empty
+        case error
+    }
     
     //MARK: Properties
     
     static let shared = ParseClient()
     
     var studentLocations: [StudentLocation]? = nil
+    var state: State = .empty {
+        didSet {
+            if oldValue != state {               
+                DispatchQueue.main.async {
+                    for delegate in self.delegates {
+                        delegate.changedState(self.state)
+                    }
+                }
+            }
+        }
+    }
+    var delegates = [ParseClientDelegate]()
+    var error: Error?
     
     //MARK: Life Cycle
     

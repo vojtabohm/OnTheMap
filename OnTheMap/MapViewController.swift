@@ -15,23 +15,29 @@ class MapViewController: UIViewController {
     //MARK: Outlets
     
     @IBOutlet var mapView: MKMapView!
+    @IBOutlet var loadingView: UIView!
     
     //MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        ParseClient.shared.delegates.append(self)
+        print(ParseClient.shared.delegates.count)
         downloadAnnotations()
     }
     
     //MARK: Functions
     
     func downloadAnnotations() {
+        setLoading(enabled: true)
         ParseClient.shared.downloadLocations { (success, error) in
             if success {
-                self.addAnnotationsToMap()
+//                self.addAnnotationsToMap()
+//                self.setLoading(enabled: false)
             } else {
-                self.showOKAlert(title: "Failed to download Locations", message: error!)
+//                self.showOKAlert(title: "Failed to download Locations", message: error!)
+//                self.setLoading(enabled: false)
             }
         }
     }
@@ -61,6 +67,13 @@ class MapViewController: UIViewController {
     }
 }
 
+//MARK: - MapViewController (UI) 
+extension MapViewController {
+    func setLoading(enabled: Bool) {
+        loadingView.isHidden = !(enabled)
+    }
+}
+
 //MARK: - MapViewController (MKMapViewDelegate)
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -78,5 +91,25 @@ extension MapViewController: MKMapViewDelegate {
         }
         
         UIApplication.shared.openURL(url)
+    }
+}
+
+extension MapViewController: ParseClientDelegate {
+    func changedState(_ state: ParseClient.State) {
+        switch state {
+        case .loading:
+            setLoading(enabled: true)
+        case .error:
+            setLoading(enabled: false)
+            showOKAlert(title: "Error", message: (ParseClient.shared.error?.localizedDescription)!)
+        default:
+            return
+        }
+    }
+    
+    func finishedDownloading() {
+        print("finishing dwonload")
+        addAnnotationsToMap()
+        setLoading(enabled: false)
     }
 }
