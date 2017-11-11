@@ -18,6 +18,10 @@
 		2F225C571FAF925500DFAB51 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C561FAF925500DFAB51 /* Constants.swift */; };
 		2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */; };
 		2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */; };
+		2F2D34401FB72C8D002F1488 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D343F1FB72C8D002F1488 /* TabBarViewController.swift */; };
+		2F2D34421FB72EFA002F1488 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D34411FB72EFA002F1488 /* TabViewController.swift */; };
+		2F2D34441FB7309B002F1488 /* TableViewPinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D34431FB7309B002F1488 /* TableViewPinCell.swift */; };
+		2F2D34461FB73379002F1488 /* AlertMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D34451FB73379002F1488 /* AlertMethod.swift */; };
 		2F32D37E1FB65D4D00764ACC /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F32D37D1FB65D4D00764ACC /* StudentLocation.swift */; };
 		2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +40,10 @@
 		2F225C561FAF925500DFAB51 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2F225C581FAF92AD00DFAB51 /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		2F225C5C1FAF93F000DFAB51 /* UdacityAuthentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityAuthentication.swift; sourceTree = "<group>"; };
+		2F2D343F1FB72C8D002F1488 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		2F2D34411FB72EFA002F1488 /* TabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
+		2F2D34431FB7309B002F1488 /* TableViewPinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewPinCell.swift; sourceTree = "<group>"; };
+		2F2D34451FB73379002F1488 /* AlertMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMethod.swift; sourceTree = "<group>"; };
 		2F32D37D1FB65D4D00764ACC /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +94,7 @@
 				2F225C541FAF858500DFAB51 /* Controller */,
 				2F225C531FAF857A00DFAB51 /* Model */,
 				2F225C511FAF856A00DFAB51 /* View */,
+				2F2D34471FB733D7002F1488 /* Extensions */,
 				2F225C461FAF852900DFAB51 /* Assets.xcassets */,
 				2F225C481FAF852900DFAB51 /* LaunchScreen.storyboard */,
 				2F225C4B1FAF852900DFAB51 /* Info.plist */,
@@ -96,6 +105,7 @@
 		2F225C511FAF856A00DFAB51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2F2D34431FB7309B002F1488 /* TableViewPinCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -113,11 +123,21 @@
 		2F225C541FAF858500DFAB51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2F225C411FAF852900DFAB51 /* LoginViewController.swift */,
 				2F225C431FAF852900DFAB51 /* Main.storyboard */,
+				2F225C411FAF852900DFAB51 /* LoginViewController.swift */,
+				2F2D343F1FB72C8D002F1488 /* TabBarViewController.swift */,
 				2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */,
+				2F2D34411FB72EFA002F1488 /* TabViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		2F2D34471FB733D7002F1488 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2F2D34451FB73379002F1488 /* AlertMethod.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,14 +213,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F2D34421FB72EFA002F1488 /* TabViewController.swift in Sources */,
+				2F2D34461FB73379002F1488 /* AlertMethod.swift in Sources */,
 				2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */,
 				2F2168C01FB4F43800DA7AB0 /* Client.swift in Sources */,
+				2F2D34401FB72C8D002F1488 /* TabBarViewController.swift in Sources */,
 				2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */,
 				2F225C421FAF852900DFAB51 /* LoginViewController.swift in Sources */,
 				2F225C401FAF852900DFAB51 /* AppDelegate.swift in Sources */,
 				2F2168C51FB4F88500DA7AB0 /* ParseLocations.swift in Sources */,
 				2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */,
 				2F2168C21FB4F44F00DA7AB0 /* ParseClient.swift in Sources */,
+				2F2D34441FB7309B002F1488 /* TableViewPinCell.swift in Sources */,
 				2F32D37E1FB65D4D00764ACC /* StudentLocation.swift in Sources */,
 				2F225C571FAF925500DFAB51 /* Constants.swift in Sources */,
 			);

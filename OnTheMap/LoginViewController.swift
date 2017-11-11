@@ -9,6 +9,10 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    //MARK: Properties
+    
+    var keyboardOnScreen: Bool = false
 
     //MARK: Outlets
     
@@ -19,10 +23,6 @@ class LoginViewController: UIViewController {
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
     
-    //MARK: Properties
-    
-    var keyboardOnScreen: Bool = false
-
     //MARK: Life Cycle
     
     override func viewDidLoad() {
@@ -33,7 +33,6 @@ class LoginViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeFromAllNotifications()
     }
-
     
     //MARK: Actions
     
@@ -64,7 +63,7 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         debugLabel.text = ""
-        let vc = storyboard?.instantiateViewController(withIdentifier: "MainTabBarViewController") as! UITabBarController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MainNavigationViewController") as! UINavigationController
         present(vc, animated: true, completion: nil)
         setUIEnabled(true)
     }
