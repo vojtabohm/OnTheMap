@@ -26,6 +26,7 @@ extension UdacityClient {
     
     struct ApiMethods {
         static let Session = "/session"
+        static let User = "/users"
     }
 }
 

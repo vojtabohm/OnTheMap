@@ -16,6 +16,7 @@ class UdacityClient: Client {
     
     var sessionID: String? = nil
     var userID: String? = nil
+    var user: User? = nil
     
     //MARK: Life Cycle
     
@@ -25,7 +26,7 @@ class UdacityClient: Client {
     
     override func URLFromParameters(parameters: [String:Any], withPathExtension: String? = nil) -> URL {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = "http"
         components.host = Constants.UdacityAPIHost
         components.path = Constants.APIPath + (withPathExtension ?? "")
         

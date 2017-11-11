@@ -23,6 +23,7 @@
 		2F2D34441FB7309B002F1488 /* TableViewPinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D34431FB7309B002F1488 /* TableViewPinCell.swift */; };
 		2F2D34461FB73379002F1488 /* AlertMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2D34451FB73379002F1488 /* AlertMethod.swift */; };
 		2F32D37E1FB65D4D00764ACC /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F32D37D1FB65D4D00764ACC /* StudentLocation.swift */; };
+		2F72BB421FB7802300671C4B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F72BB411FB7802300671C4B /* User.swift */; };
 		2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		2F2D34431FB7309B002F1488 /* TableViewPinCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewPinCell.swift; sourceTree = "<group>"; };
 		2F2D34451FB73379002F1488 /* AlertMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMethod.swift; sourceTree = "<group>"; };
 		2F32D37D1FB65D4D00764ACC /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
+		2F72BB411FB7802300671C4B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 			children = (
 				2F225C561FAF925500DFAB51 /* Constants.swift */,
 				2F32D37D1FB65D4D00764ACC /* StudentLocation.swift */,
+				2F72BB411FB7802300671C4B /* User.swift */,
 				2F2168C31FB4F82A00DA7AB0 /* Clients */,
 			);
 			name = Model;
@@ -221,6 +224,7 @@
 				2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */,
 				2F225C421FAF852900DFAB51 /* LoginViewController.swift in Sources */,
 				2F225C401FAF852900DFAB51 /* AppDelegate.swift in Sources */,
+				2F72BB421FB7802300671C4B /* User.swift in Sources */,
 				2F2168C51FB4F88500DA7AB0 /* ParseLocations.swift in Sources */,
 				2F225C5D1FAF93F000DFAB51 /* UdacityAuthentication.swift in Sources */,
 				2F2168C21FB4F44F00DA7AB0 /* ParseClient.swift in Sources */,

@@ -30,6 +30,7 @@ extension UdacityClient {
             if success {
                 self.sessionID = sessionID!
                 self.userID = key!
+                self.getUserData()
                 DispatchQueue.main.async {
                     loginCompletionHandler(true, nil)
                 }
@@ -63,6 +64,20 @@ extension UdacityClient {
             }
             
             sessionCompletionHandler(true, sessionID, key, nil)
+        }
+    }
+    
+    func getUserData() {
+        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.User + "/\(userID!)", headers: [:], body: [:], isFromUdacity: true) { (result, error) in
+            guard error == nil else {
+                return
+            }
+            
+            guard let user = result?["user"] as? [String:Any] else {
+                return
+            }
+            
+            self.user = User(dictionary: user)
         }
     }
     
