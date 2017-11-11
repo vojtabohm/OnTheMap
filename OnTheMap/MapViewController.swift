@@ -23,24 +23,10 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         ParseClient.shared.delegates.append(self)
-        print(ParseClient.shared.delegates.count)
-        downloadAnnotations()
+        ParseClient.shared.downloadLocations()
     }
     
     //MARK: Functions
-    
-    func downloadAnnotations() {
-        setLoading(enabled: true)
-        ParseClient.shared.downloadLocations { (success, error) in
-            if success {
-//                self.addAnnotationsToMap()
-//                self.setLoading(enabled: false)
-            } else {
-//                self.showOKAlert(title: "Failed to download Locations", message: error!)
-//                self.setLoading(enabled: false)
-            }
-        }
-    }
     
     func addAnnotationsToMap() {
         var annotations = [MKPointAnnotation]()
@@ -94,6 +80,7 @@ extension MapViewController: MKMapViewDelegate {
     }
 }
 
+//MARK: - MapViewController: (ParseClientDelegate)
 extension MapViewController: ParseClientDelegate {
     func changedState(_ state: ParseClient.State) {
         switch state {
@@ -108,7 +95,6 @@ extension MapViewController: ParseClientDelegate {
     }
     
     func finishedDownloading() {
-        print("finishing dwonload")
         addAnnotationsToMap()
         setLoading(enabled: false)
     }

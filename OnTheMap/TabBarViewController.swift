@@ -40,15 +40,7 @@ class TabBarViewController: UITabBarController {
     }
     
     @IBAction func reloadData(_ sender: Any) {
-        //loading
-        ParseClient.shared.downloadLocations { (success, error) in
-            if success {
-                //stop loading
-            } else {
-                //self.showOKAlert(title: "Error", message: error!)
-                //stop loading
-            }
-        }
+        ParseClient.shared.downloadLocations()
     }
 }
 

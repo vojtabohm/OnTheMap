@@ -10,7 +10,7 @@ import Foundation
 
 extension ParseClient {
     
-    func downloadLocations(downloadCompletionHandler: @escaping (Bool, String?) -> Void) {
+    func downloadLocations() {
         self.state = .loading
         
         let parameters: [String:Any] = [
@@ -25,18 +25,12 @@ extension ParseClient {
         
         let _ = taskFor(method: .POST, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], isFromUdacity: false) { (result, error) in
             guard error == nil else {
-                DispatchQueue.main.async {
-                    downloadCompletionHandler(false, error?.localizedDescription)
-                }
                 self.state = .error
                 self.error = error
                 return
             }
             
             guard let results = result?["results"] as? [[String:Any]] else {
-                DispatchQueue.main.async {
-                    downloadCompletionHandler(false, "Cannot find results")
-                }
                 self.state = .error
                 self.error = NSError(domain: "failed", code: 1, userInfo: [NSLocalizedDescriptionKey:"Cannot find results"])
                 return
@@ -46,9 +40,6 @@ extension ParseClient {
             self.studentLocations = studentLocations
             
             guard self.studentLocations != nil else {
-                DispatchQueue.main.async {
-                    downloadCompletionHandler(false, "Couldn't create Locations")
-                }
                 self.state = .error
                 self.error = NSError(domain: "failed", code: 1, userInfo: [NSLocalizedDescriptionKey:"Couldn't create Locations"])
 
@@ -61,8 +52,6 @@ extension ParseClient {
                 for delegate in self.delegates {
                     delegate.finishedDownloading()
                 }
-                
-                downloadCompletionHandler(true, nil)
             }
         }
         
