@@ -54,6 +54,7 @@ class MapViewController: UIViewController {
 }
 
 //MARK: - MapViewController (UI) 
+
 extension MapViewController {
     func setLoading(enabled: Bool) {
         loadingView.isHidden = !(enabled)
@@ -61,6 +62,7 @@ extension MapViewController {
 }
 
 //MARK: - MapViewController (MKMapViewDelegate)
+
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
@@ -81,6 +83,7 @@ extension MapViewController: MKMapViewDelegate {
 }
 
 //MARK: - MapViewController: (ParseClientDelegate)
+
 extension MapViewController: ParseClientDelegate {
     func changedState(_ state: ParseClient.State) {
         switch state {
@@ -88,7 +91,7 @@ extension MapViewController: ParseClientDelegate {
             setLoading(enabled: true)
         case .error:
             setLoading(enabled: false)
-            showOKAlert(title: "Error", message: (ParseClient.shared.error?.localizedDescription)!)
+            showOKAlert(title: "Error", message: ParseClient.shared.error!)
         default:
             return
         }

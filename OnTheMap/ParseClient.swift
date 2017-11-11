@@ -39,7 +39,7 @@ class ParseClient: Client {
         }
     }
     var delegates = [ParseClientDelegate]()
-    var error: Error?
+    var error: String?
     
     //MARK: Life Cycle
     

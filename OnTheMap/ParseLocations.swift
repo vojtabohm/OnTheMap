@@ -25,14 +25,18 @@ extension ParseClient {
         
         let _ = taskFor(method: .POST, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], isFromUdacity: false) { (result, error) in
             guard error == nil else {
+                if (error?.localizedDescription.contains("connection"))! {
+                    self.error = "Please check your Internet connection"
+                } else {
+                    self.error = error?.localizedDescription
+                }
                 self.state = .error
-                self.error = error
                 return
             }
             
             guard let results = result?["results"] as? [[String:Any]] else {
+                self.error = "Cannot find results"
                 self.state = .error
-                self.error = NSError(domain: "failed", code: 1, userInfo: [NSLocalizedDescriptionKey:"Cannot find results"])
                 return
             }
             
@@ -40,9 +44,8 @@ extension ParseClient {
             self.studentLocations = studentLocations
             
             guard self.studentLocations != nil else {
+                self.error = "Couldn't create Locations"
                 self.state = .error
-                self.error = NSError(domain: "failed", code: 1, userInfo: [NSLocalizedDescriptionKey:"Couldn't create Locations"])
-
                 return
             }
             

@@ -31,6 +31,7 @@ class TabViewController: UIViewController {
 }
 
 //MARK: - TabViewController (UI)
+
 extension TabViewController {
     func setLoading(enabled: Bool) {
         loadingView.isHidden = !(enabled)
@@ -38,6 +39,7 @@ extension TabViewController {
 }
 
 //MARK: - TabViewController (UITableViewDelegate)
+
 extension TabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let urlString = ParseClient.shared.studentLocations?[indexPath.row].mediaURL else {
@@ -54,6 +56,7 @@ extension TabViewController: UITableViewDelegate {
 }
 
 //MARK: - TabViewController (UITableViewDataSource)
+
 extension TabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let count = ParseClient.shared.studentLocations?.count else {
@@ -71,6 +74,7 @@ extension TabViewController: UITableViewDataSource {
 }
 
 //MARK: - TabViewController (ParseClientDelegate)
+
 extension TabViewController: ParseClientDelegate {
     func changedState(_ state: ParseClient.State) {
         switch state {
@@ -78,7 +82,7 @@ extension TabViewController: ParseClientDelegate {
             setLoading(enabled: true)
         case .error:
             setLoading(enabled: false)
-            showOKAlert(title: "Error", message: (ParseClient.shared.error?.localizedDescription)!)
+            showOKAlert(title: "Error", message: ParseClient.shared.error!)
         default:
             return
         }

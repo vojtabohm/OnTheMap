@@ -45,6 +45,7 @@ class TabBarViewController: UITabBarController {
 }
 
 //MARK: - TabBarViewController (Configure)
+
 extension TabBarViewController {
     func setUIEnabled(_ enabled: Bool) {
         logOutButton.isEnabled = enabled
