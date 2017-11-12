@@ -21,7 +21,7 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ParseClient.shared.delegates.append(self)
     }
     
     //MARK: Actions
@@ -45,12 +45,51 @@ class TabBarViewController: UITabBarController {
     
     @IBAction func addLocation(_ sender: Any) {
         ParseClient.shared.downloadUserLocation() { (success, error) in
-            if !success {
+            if success {
+                self.completeAddLocation()
+            } else {
                 self.showOKAlert(title: "Error", message: (error?.localizedDescription)!)
             }
         }
-        let vc = storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
-        present(vc, animated: true, completion: nil)
+    }
+    
+    //MARK: Functions
+    
+    func completeAddLocation() {
+        if ParseClient.shared.objectID != nil {
+            let vc = UIAlertController(title: "Wait a second", message: "You have already posted a location", preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "Overwrite", style: .default, handler: { _ in
+                self.presentAddLocation()
+            }))
+            vc.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(vc, animated: true, completion: nil)
+        } else {
+            presentAddLocation()
+        }
+    }
+    
+    func presentAddLocation() {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "PostNavigationViewController") as! UINavigationController
+        self.present(vc, animated: true, completion: nil)
+    }
+}
+
+extension TabBarViewController: ParseClientDelegate {
+    func changedState(_ state: ParseClient.State) {
+        switch state {
+        case .loading:
+            setUIEnabled(false)
+        case .error:
+            setUIEnabled(true)
+        case .ready:
+            setUIEnabled(true)
+        default:
+            return
+        }
+    }
+    
+    func finishedDownloading() {
+        setUIEnabled(true)
     }
 }
 

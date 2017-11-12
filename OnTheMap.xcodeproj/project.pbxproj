@@ -26,6 +26,7 @@
 		2F72BB421FB7802300671C4B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F72BB411FB7802300671C4B /* User.swift */; };
 		2F72BB441FB786B100671C4B /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F72BB431FB786B100671C4B /* PostViewController.swift */; };
 		2F80F8B01FB1C7B200D1E24F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */; };
+		2FD96C8A1FB8CCA3000EECBD /* GeoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD96C891FB8CCA2000EECBD /* GeoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		2F72BB411FB7802300671C4B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2F72BB431FB786B100671C4B /* PostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2FD96C891FB8CCA2000EECBD /* GeoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				2F80F8AF1FB1C7B200D1E24F /* MapViewController.swift */,
 				2F2D34411FB72EFA002F1488 /* TabViewController.swift */,
 				2F72BB431FB786B100671C4B /* PostViewController.swift */,
+				2FD96C891FB8CCA2000EECBD /* GeoViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FD96C8A1FB8CCA3000EECBD /* GeoViewController.swift in Sources */,
 				2F2D34421FB72EFA002F1488 /* TabViewController.swift in Sources */,
 				2F2D34461FB73379002F1488 /* AlertMethod.swift in Sources */,
 				2F225C591FAF92AD00DFAB51 /* UdacityClient.swift in Sources */,
@@ -378,7 +382,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.OnTheMapUdacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -393,7 +397,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.OnTheMapUdacity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;

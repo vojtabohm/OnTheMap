@@ -30,6 +30,7 @@ class ParseClient: Client {
     var delegates = [ParseClientDelegate]()
     var error: String?
     var objectID: String?
+    var user: User? = nil
     var state: State = .empty {
         didSet {
             if oldValue != state {

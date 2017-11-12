@@ -92,6 +92,8 @@ extension MapViewController: ParseClientDelegate {
         case .error:
             setLoading(enabled: false)
             showOKAlert(title: "Error", message: ParseClient.shared.error!)
+        case .ready:
+            setLoading(enabled: false)
         default:
             return
         }

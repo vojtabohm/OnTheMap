@@ -84,7 +84,7 @@ extension UdacityClient {
                 return
             }
             
-            self.user = User(dictionary: user)
+            ParseClient.shared.user = User(dictionary: user)
         }
     }
     

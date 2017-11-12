@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 extension ParseClient {
 
@@ -64,11 +65,20 @@ extension ParseClient {
     }
     
     func getUserLocation(_ userID: String, handler: @escaping (Bool, Error?) -> Void) {
+        self.state = .loading
+        
+        //Check to see if I already downloaded Object ID once. If yes, skip return from this method.
+        guard objectID == nil else {
+            state = .ready
+            handler(true, nil)
+            return
+        }
+        
         //FORCED THIS TASK TO A FIXED URL, I COULDNT FIGURE OUT HWO TO ESCAPE COLON CHARACTER
         var urlRequest = URLRequest(url: URL(string: "https://parse.udacity.com/parse/classes/StudentLocation?where=%7B%22uniqueKey%22%3A%22\(userID)%22%7D")!)
         urlRequest.addValue(Constants.parseApplicationID, forHTTPHeaderField: "X-Parse-Application-Id")
         urlRequest.addValue(Constants.restAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        urlRequest.httpMethod = "POST"
+        urlRequest.httpMethod = "GET"
         
         let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             func sendError(_ error: String) {
@@ -77,31 +87,69 @@ extension ParseClient {
             }
             
             guard (error == nil) else {
+                if error!.localizedDescription.contains("connection") {
+                    self.error = "Please check your Internet connection"
+                } else {
+                    self.error = error?.localizedDescription
+                }
+                self.state = .error
                 sendError("There was an error with your request: \(error!)")
                 return
             }
             
             guard let data = data else {
+                self.error = "No data returned"
+                self.state = .error
                 sendError("No data was returned by the request!")
                 return
             }
             
             self.parseData(data, parseCompletionHandler: { (result, error) in
                 guard error == nil else {
+                    self.error = "Failed to parse data"
+                    self.state = .error
                     sendError("Failed to parse data")
                     return
                 }
                 
-                guard let objectID = result?["objectId"] as? String else {
+                guard let results = result?["results"] as? [[String:Any]] else {
+                    self.error = "Failed to parse results"
+                    self.state = .error
+                    sendError("Failed to parse results")
+                    return
+                }
+                
+                guard let objectID = results.first?["objectId"] as? String else {
                     return
                 }
                 
                 self.objectID = objectID
+                self.state = .ready
                 
-                print(self.objectID)
+                DispatchQueue.main.async {
+                    handler(true, nil)
+                }
             })
         }
         
         task.resume()
+    }
+    
+    func geocode(string: String, completionHandler: @escaping (Bool, Error?) -> Void) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(string) { (placemark, error) in
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
+                }
+                return
+            }
+            
+            self.user?.addLocation(Location(objectID: self.objectID, location: (placemark?.first?.location)!))
+            
+            DispatchQueue.main.async {
+                completionHandler(true, nil)
+            }
+        }
     }
 }

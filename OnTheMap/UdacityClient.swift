@@ -16,7 +16,6 @@ class UdacityClient: Client {
     
     var sessionID: String? = nil
     var userID: String? = nil
-    var user: User? = nil
     
     //MARK: Life Cycle
     
