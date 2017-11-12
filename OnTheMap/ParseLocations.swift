@@ -104,6 +104,7 @@ extension ParseClient {
                 return
             }
             
+            print(response?.url)
             self.parseData(data, parseCompletionHandler: { (result, error) in
                 guard error == nil else {
                     self.error = "Failed to parse data"
@@ -120,6 +121,9 @@ extension ParseClient {
                 }
                 
                 guard let objectID = results.first?["objectId"] as? String else {
+                    self.error = "Failed to fetch objectID"
+                    self.state = .error
+                    print(result)
                     return
                 }
                 
@@ -201,7 +205,6 @@ extension ParseClient {
             DispatchQueue.main.async {
                 for delegate in self.delegates {
                     delegate.finishedPosting()
-                    
                 }
                 completionHandler(true, error)
             }

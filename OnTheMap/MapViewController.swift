@@ -105,6 +105,7 @@ extension MapViewController: ParseClientDelegate {
     }
     
     func finishedPosting() {
-        return
+        let allAnnotations = mapView.annotations
+        mapView.removeAnnotations(allAnnotations)
     }
 }
