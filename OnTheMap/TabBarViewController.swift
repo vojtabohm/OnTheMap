@@ -91,6 +91,10 @@ extension TabBarViewController: ParseClientDelegate {
     func finishedDownloading() {
         setUIEnabled(true)
     }
+    
+    func finishedPosting() {
+        ParseClient.shared.downloadLocations()
+    }
 }
 
 //MARK: - TabBarViewController (Configure)

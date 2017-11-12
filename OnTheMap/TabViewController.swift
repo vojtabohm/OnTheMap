@@ -94,4 +94,8 @@ extension TabViewController: ParseClientDelegate {
         setLoading(enabled: false)
         tableView.reloadData()
     }
+    
+    func finishedPosting() {
+        return
+    }
 }

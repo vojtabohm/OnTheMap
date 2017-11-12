@@ -11,6 +11,7 @@ import Foundation
 protocol ParseClientDelegate {
     func changedState(_ state: ParseClient.State)
     func finishedDownloading()
+    func finishedPosting()
 }
 
 class ParseClient: Client {

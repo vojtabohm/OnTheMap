@@ -55,6 +55,8 @@ class PostViewController: UIViewController {
         ParseClient.shared.geocode(string: locationField.text!) { (success, error) in
             if success {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeoViewController") as! GeoViewController
+                vc.mediaURL = self.urlField.text!
+                vc.mapString = self.locationField.text!
                 self.navigationController?.pushViewController(vc, animated: true)
                 self.setUIEnabled(true)
             } else {

@@ -24,11 +24,15 @@ struct User {
     mutating func addLocation(_ location: Location) {
         self.location = location
     }
+    
+    func getLocation() -> Location? {
+        return self.location
+    }
 }
 
 struct Location {
     let objectID: String?
-    private var location: CLLocation
+    var location: CLLocation
     
     init(objectID: String?, location: CLLocation) {
         self.objectID = objectID

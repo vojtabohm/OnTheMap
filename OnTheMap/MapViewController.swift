@@ -103,4 +103,8 @@ extension MapViewController: ParseClientDelegate {
         addAnnotationsToMap()
         setLoading(enabled: false)
     }
+    
+    func finishedPosting() {
+        return
+    }
 }

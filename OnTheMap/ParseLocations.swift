@@ -152,4 +152,59 @@ extension ParseClient {
             }
         }
     }
+    
+    func addLocation(mapString: String, mediaURL: String, latitude: Double, longitude: Double, completionHandler: @escaping (Bool, Error?) -> Void) {
+        guard let firstName = user?.firstName, let lastName = user?.lastName, let id = user?.userID else {
+            completionHandler(false, NSError(domain: "failure", code: 1, userInfo: [NSLocalizedDescriptionKey:"No User info, unable to post location"]))
+            return
+        }
+        
+        var method = Methods.POST
+        var methodPath = ""
+        
+        if objectID != nil {
+            method = .PUT
+            methodPath = "/\(objectID!)"
+        }
+        
+        let headers = [
+            "X-Parse-Application-Id":Constants.parseApplicationID,
+            "X-Parse-REST-API-Key":Constants.restAPIKey,
+            "Content-Type":"application/json"
+        ]
+        
+        let body: [String:Any] = [
+            "uniqueKey":id,
+            "firstName":firstName,
+            "lastName":lastName,
+            "mapString":mapString,
+            "mediaURL":mediaURL,
+            "latitude":latitude,
+            "longitude":longitude
+        ]
+        
+        let _ = taskFor(method: method, parameters: [:], apiMethodPath: ApiMethods.StudentLocation + methodPath, headers: headers, body: body, isFromUdacity: false) { (result, error) in
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
+                }
+                return
+            }
+            
+            guard (result?["updatedAt"]) != nil else {
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                for delegate in self.delegates {
+                    delegate.finishedPosting()
+                    
+                }
+                completionHandler(true, error)
+            }
+        }
+    }
 }

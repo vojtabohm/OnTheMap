@@ -432,6 +432,9 @@
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="didTapFinish:" destination="RRe-wK-5TS" eventType="touchUpInside" id="ZiD-ln-cu2"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -445,6 +448,10 @@
                             <constraint firstItem="jU9-kP-2Ci" firstAttribute="leading" secondItem="Er5-Ix-efo" secondAttribute="leadingMargin" id="ypx-Vk-nug"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="finishButton" destination="jU9-kP-2Ci" id="Ay1-SH-uy1"/>
+                        <outlet property="mapView" destination="pJ4-HS-B13" id="JWY-gN-5Qf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WJL-VN-oge" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
