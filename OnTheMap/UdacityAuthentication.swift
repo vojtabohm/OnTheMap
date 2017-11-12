@@ -45,7 +45,14 @@ extension UdacityClient {
     func postSession(username: String, password: String, headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
         let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: body, isFromUdacity: true) { (result, error) in
             guard error == nil else {
-                sessionCompletionHandler(false, nil, nil, error!.localizedDescription)
+                if let error = error {
+                    switch error {
+                    case URLError.notConnectedToInternet:
+                        sessionCompletionHandler(false, nil, nil, "Check your Internet connection please")
+                    default:
+                        sessionCompletionHandler(false, nil, nil, error.localizedDescription)
+                    }
+                }
                 return
             }
             

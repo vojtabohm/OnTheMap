@@ -14,8 +14,8 @@ struct User {
     let userID: String
     
     init(dictionary: [String:Any]) {
-        self.firstName = dictionary["first_name"] as! String
-        self.lastName = dictionary["last_name"] as! String
+        self.firstName = dictionary["first_name"] as? String ?? "[No First Name]"
+        self.lastName = dictionary["last_name"] as? String ?? "[No Last Name]"
         self.userID = dictionary["key"] as! String
     }
 }

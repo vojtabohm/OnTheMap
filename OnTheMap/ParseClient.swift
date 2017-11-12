@@ -27,9 +27,12 @@ class ParseClient: Client {
     static let shared = ParseClient()
     
     var studentLocations: [StudentLocation]? = nil
+    var delegates = [ParseClientDelegate]()
+    var error: String?
+    var objectID: String?
     var state: State = .empty {
         didSet {
-            if oldValue != state {               
+            if oldValue != state {
                 DispatchQueue.main.async {
                     for delegate in self.delegates {
                         delegate.changedState(self.state)
@@ -38,8 +41,6 @@ class ParseClient: Client {
             }
         }
     }
-    var delegates = [ParseClientDelegate]()
-    var error: String?
     
     //MARK: Life Cycle
     

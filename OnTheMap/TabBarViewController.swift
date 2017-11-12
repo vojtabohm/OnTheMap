@@ -42,6 +42,16 @@ class TabBarViewController: UITabBarController {
     @IBAction func reloadData(_ sender: Any) {
         ParseClient.shared.downloadLocations()
     }
+    
+    @IBAction func addLocation(_ sender: Any) {
+        ParseClient.shared.downloadUserLocation() { (success, error) in
+            if !success {
+                self.showOKAlert(title: "Error", message: (error?.localizedDescription)!)
+            }
+        }
+        let vc = storyboard?.instantiateViewController(withIdentifier: "PostViewController") as! PostViewController
+        present(vc, animated: true, completion: nil)
+    }
 }
 
 //MARK: - TabBarViewController (Configure)

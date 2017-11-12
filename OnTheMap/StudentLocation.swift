@@ -16,11 +16,11 @@ struct StudentLocation {
     let mediaURL: String
     
     init(dictionary: [String:Any]) {
-        self.firstName = dictionary["firstName"] as! String
-        self.lastName = dictionary["lastName"] as! String
-        self.latitude = dictionary["latitude"] as! Double
-        self.longitude = dictionary["longitude"] as! Double
-        self.mediaURL = dictionary["mediaURL"] as! String
+        self.firstName = dictionary["firstName"] as? String ?? "[No First Name]"
+        self.lastName = dictionary["lastName"] as? String ?? "[No Last Name]"
+        self.latitude = dictionary["latitude"] as? Double ?? 0
+        self.longitude = dictionary["longitude"] as? Double ?? 0
+        self.mediaURL = dictionary["mediaURL"] as? String ?? "[No URL]"
     }
     
     static func studentLocationsFrom(_ results: [[String:Any]]) -> [StudentLocation] {

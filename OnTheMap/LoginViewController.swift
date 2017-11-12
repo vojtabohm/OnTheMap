@@ -83,25 +83,25 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
     
-    func keyboardWillShow(_ notification: Notification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         if !keyboardOnScreen {
             self.view.frame.origin.y -= self.keyboardHeight(notification)
             self.logoImageView.isHidden = true
         }
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         if keyboardOnScreen {
             self.view.frame.origin.y += self.keyboardHeight(notification)
             self.logoImageView.isHidden = false
         }
     }
     
-    func keyboardDidShow() {
+    @objc func keyboardDidShow() {
         keyboardOnScreen = true
     }
     
-    func keyboardDidHide() {
+    @objc func keyboardDidHide() {
         keyboardOnScreen = false
     }
     
