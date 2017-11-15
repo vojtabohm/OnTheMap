@@ -24,7 +24,7 @@ extension ParseClient {
             "X-Parse-REST-API-Key":Constants.restAPIKey
         ]
         
-        let _ = taskFor(method: .POST, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], isFromUdacity: false) { (result, error) in
+        let _ = taskFor(method: .POST, parameters: parameters, apiMethodPath: ApiMethods.StudentLocation, headers: headers, body: [:], scheme: "http", isFromUdacity: false) { (result, error) in
             guard error == nil else {
                 if (error?.localizedDescription.contains("connection"))! {
                     self.error = "Please check your Internet connection"
@@ -89,11 +89,12 @@ extension ParseClient {
             guard (error == nil) else {
                 if error!.localizedDescription.contains("connection") {
                     self.error = "Please check your Internet connection"
+                    sendError("Please check your Internet connection")
                 } else {
-                    self.error = error?.localizedDescription
+                    self.error = "There was an error with your request"
+                    sendError("There was an error with your request: \(error!)")
                 }
                 self.state = .error
-                sendError("There was an error with your request: \(error!)")
                 return
             }
             
@@ -104,7 +105,6 @@ extension ParseClient {
                 return
             }
             
-            print(response?.url)
             self.parseData(data, parseCompletionHandler: { (result, error) in
                 guard error == nil else {
                     self.error = "Failed to parse data"
@@ -123,7 +123,6 @@ extension ParseClient {
                 guard let objectID = results.first?["objectId"] as? String else {
                     self.error = "Failed to fetch objectID"
                     self.state = .error
-                    print(result)
                     return
                 }
                 
@@ -144,7 +143,7 @@ extension ParseClient {
         geocoder.geocodeAddressString(string) { (placemark, error) in
             guard error == nil else {
                 DispatchQueue.main.async {
-                    completionHandler(false, error)
+                    completionHandler(false, NSError(domain: "failure", code: 1, userInfo: [NSLocalizedDescriptionKey:"Unable to geocode adress, probably internet connection"]))
                 }
                 return
             }
@@ -187,10 +186,16 @@ extension ParseClient {
             "longitude":longitude
         ]
         
-        let _ = taskFor(method: method, parameters: [:], apiMethodPath: ApiMethods.StudentLocation + methodPath, headers: headers, body: body, isFromUdacity: false) { (result, error) in
+        let _ = taskFor(method: method, parameters: [:], apiMethodPath: ApiMethods.StudentLocation + methodPath, headers: headers, body: body, scheme: "http", isFromUdacity: false) { (result, error) in
             guard error == nil else {
-                DispatchQueue.main.async {
-                    completionHandler(false, error)
+                if error!.localizedDescription.contains("connection") {
+                    DispatchQueue.main.async {
+                        completionHandler(false, NSError(domain: "failure", code: 1, userInfo: [NSLocalizedDescriptionKey:"Check your Internet connection please"]))
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completionHandler(false, error)
+                    }
                 }
                 return
             }

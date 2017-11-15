@@ -9,9 +9,9 @@
 import Foundation
 
 class Client: NSObject {
-    func URLFromParameters(parameters: [String:Any], withPathExtension: String? = nil) -> URL {
+    func URLFromParameters(parameters: [String:Any], scheme: String, withPathExtension: String? = nil) -> URL {
         var components = URLComponents()
-        components.scheme = "https"
+        components.scheme = scheme
         components.host = ""
         components.path = ""
         
@@ -28,9 +28,9 @@ class Client: NSObject {
     }
     
     //Generalized task function for every HTTP METHOD
-    func taskFor(method: Methods, parameters: [String:Any], apiMethodPath: String, headers: [String:Any], body: [String:Any], isFromUdacity: Bool, _ handler: @escaping (_ data: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
-        
-        var request = URLRequest(url: URLFromParameters(parameters: parameters, withPathExtension: apiMethodPath))
+    func taskFor(method: Methods, parameters: [String:Any], apiMethodPath: String, headers: [String:Any], body: [String:Any], scheme: String, isFromUdacity: Bool, _ handler: @escaping (_ data: AnyObject?, _ error: Error?) -> Void) -> URLSessionDataTask {
+            
+        var request = URLRequest(url: URLFromParameters(parameters: parameters, scheme: scheme, withPathExtension: apiMethodPath))
         request.httpMethod = method.rawValue
         
         for (key, value) in headers {

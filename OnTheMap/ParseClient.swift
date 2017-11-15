@@ -50,9 +50,9 @@ class ParseClient: Client {
     
     //MARK: Functions
     
-    override func URLFromParameters(parameters: [String : Any], withPathExtension: String?) -> URL {
+    override func URLFromParameters(parameters: [String : Any], scheme: String, withPathExtension: String?) -> URL {
         var components = URLComponents()
-        components.scheme = "http"
+        components.scheme = scheme
         components.host = Constants.ParseAPIHost
         components.path = Constants.APIPath + (withPathExtension ?? "")
         

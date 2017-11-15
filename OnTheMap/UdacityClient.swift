@@ -23,9 +23,9 @@ class UdacityClient: Client {
     
     //MARK: Functions
     
-    override func URLFromParameters(parameters: [String:Any], withPathExtension: String? = nil) -> URL {
+    override func URLFromParameters(parameters: [String:Any], scheme: String, withPathExtension: String? = nil) -> URL {
         var components = URLComponents()
-        components.scheme = "http"
+        components.scheme = scheme
         components.host = Constants.UdacityAPIHost
         components.path = Constants.APIPath + (withPathExtension ?? "")
         

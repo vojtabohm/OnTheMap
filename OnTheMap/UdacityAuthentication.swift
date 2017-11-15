@@ -43,15 +43,12 @@ extension UdacityClient {
     }
     
     func postSession(username: String, password: String, headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
-        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: body, isFromUdacity: true) { (result, error) in
+        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: body, scheme: "https",isFromUdacity: true) { (result, error) in
             guard error == nil else {
-                if let error = error {
-                    switch error {
-                    case URLError.notConnectedToInternet:
-                        sessionCompletionHandler(false, nil, nil, "Check your Internet connection please")
-                    default:
-                        sessionCompletionHandler(false, nil, nil, error.localizedDescription)
-                    }
+                if error!.localizedDescription.contains("connection") {
+                    sessionCompletionHandler(false, nil, nil, "Check your Internet connection please")
+                } else {
+                    sessionCompletionHandler(false, nil, nil, error!.localizedDescription)
                 }
                 return
             }
@@ -70,12 +67,17 @@ extension UdacityClient {
                 return
             }
             
+            guard let registered = account["registered"] as? Int, registered == 1 else {
+                sessionCompletionHandler(false, nil, nil, "User not registered")
+                return
+            }
+            
             sessionCompletionHandler(true, sessionID, key, nil)
         }
     }
     
     func getUserData() {
-        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.User + "/\(userID!)", headers: [:], body: [:], isFromUdacity: true) { (result, error) in
+        let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.User + "/\(userID!)", headers: [:], body: [:], scheme: "http", isFromUdacity: true) { (result, error) in
             guard error == nil else {
                 return
             }
@@ -91,9 +93,13 @@ extension UdacityClient {
     func logOut(logOutCompletionHandler: @escaping (Bool,Error?) -> Void) {
         let headers: [String:Any] = ["X-XSRF-TOKEN":sessionID!]
         
-        let _ = taskFor(method: .DELETE, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: [:], isFromUdacity: true) { (result, error) in
+        let _ = taskFor(method: .DELETE, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: [:], scheme: "http", isFromUdacity: true) { (result, error) in
             guard error == nil else {
-                logOutCompletionHandler(false, error)
+                if error!.localizedDescription.contains("connection") {
+                    logOutCompletionHandler(false, NSError(domain: "failure", code: 0, userInfo: [NSLocalizedDescriptionKey:"Check your Internet connection please"]))
+                } else {
+                    logOutCompletionHandler(false, error)
+                }
                 return
             }
 
