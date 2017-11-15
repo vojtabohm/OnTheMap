@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
     func addAnnotationsToMap() {
         var annotations = [MKPointAnnotation]()
         
-        for student in ParseClient.shared.studentLocations! {
+        for student in StudentLocation.studentLocations! {
             let latitude = CLLocationDegrees(student.latitude)
             let longitude = CLLocationDegrees(student.longitude)
             

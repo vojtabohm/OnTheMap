@@ -22,6 +22,7 @@ class PostViewController: UIViewController {
     @IBOutlet var debugLabel: UILabel!
     @IBOutlet var findLocationButton: UIButton!
     @IBOutlet var iconImage: UIImageView!
+    @IBOutlet var loadingView: UIView!
     
     //MARK: Life Cycle
     
@@ -39,6 +40,7 @@ class PostViewController: UIViewController {
     @IBAction func findLocation(_ sender: Any) {
         userDidTapView(self)
         setUIEnabled(false)
+        debugLabel.text = ""
         
         guard !locationField.text!.isEmpty && !urlField.text!.isEmpty else {
             debugLabel.text = "Location or URL Empty"
@@ -51,9 +53,10 @@ class PostViewController: UIViewController {
             setUIEnabled(true)
             return
         }
-        
+        loadingView.isHidden = false
         ParseClient.shared.geocode(string: locationField.text!) { (success, error) in
             if success {
+                self.loadingView.isHidden = true
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeoViewController") as! GeoViewController
                 vc.mediaURL = self.urlField.text!
                 vc.mapString = self.locationField.text!
@@ -61,6 +64,7 @@ class PostViewController: UIViewController {
                 self.setUIEnabled(true)
             } else {
                 self.debugLabel.text = error?.localizedDescription
+                self.loadingView.isHidden = true
                 self.setUIEnabled(true)
             }
         }

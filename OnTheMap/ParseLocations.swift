@@ -42,9 +42,9 @@ extension ParseClient {
             }
             
             let studentLocations = StudentLocation.studentLocationsFrom(results)
-            self.studentLocations = studentLocations
+            StudentLocation.studentLocations = studentLocations
             
-            guard self.studentLocations != nil else {
+            guard StudentLocation.studentLocations != nil else {
                 self.error = "Couldn't create Locations"
                 self.state = .error
                 return

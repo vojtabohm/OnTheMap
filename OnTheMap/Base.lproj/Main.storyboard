@@ -72,14 +72,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeh-gQ-MrZ" customClass="FBSDKLoginButton">
-                                        <rect key="frame" x="0.0" y="314" width="288" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Krz-wS-1KR"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="314" width="288" height="30"/>
                                         <state key="normal" title="Faceboook"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="feJ-2x-H4i">
-                                        <rect key="frame" x="0.0" y="384" width="288" height="18"/>
+                                        <rect key="frame" x="0.0" y="354" width="288" height="18"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DON'T HAVE AN ACCOUNT?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qh7-Fb-AZe">
                                                 <rect key="frame" x="0.0" y="0.0" width="200.5" height="18"/>
@@ -98,7 +95,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xt-4p-NuB">
-                                        <rect key="frame" x="0.0" y="412" width="288" height="136"/>
+                                        <rect key="frame" x="0.0" y="382" width="288" height="166"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="textColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -378,12 +375,29 @@
                                     <constraint firstItem="eg5-tL-3WF" firstAttribute="height" secondItem="JSV-f5-BBG" secondAttribute="height" id="CGd-Us-nrJ"/>
                                 </constraints>
                             </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPP-Fb-lng">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PDn-Am-MZF">
+                                        <rect key="frame" x="150" y="242" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="PDn-Am-MZF" firstAttribute="centerY" secondItem="dPP-Fb-lng" secondAttribute="centerY" id="F0u-ez-3NZ"/>
+                                    <constraint firstItem="PDn-Am-MZF" firstAttribute="centerX" secondItem="dPP-Fb-lng" secondAttribute="centerX" id="zdm-VH-4fg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dPP-Fb-lng" secondAttribute="trailing" id="DRv-jq-uFL"/>
+                            <constraint firstItem="dPP-Fb-lng" firstAttribute="top" secondItem="PHD-hJ-EkX" secondAttribute="bottom" id="DUc-Xe-eUg"/>
                             <constraint firstItem="7RX-N9-dtD" firstAttribute="leading" secondItem="8Q9-uv-gpK" secondAttribute="leadingMargin" id="Ov6-X4-7je"/>
                             <constraint firstItem="7RX-N9-dtD" firstAttribute="trailing" secondItem="8Q9-uv-gpK" secondAttribute="trailingMargin" id="QmS-jq-3kv"/>
+                            <constraint firstItem="dPP-Fb-lng" firstAttribute="leading" secondItem="8Q9-uv-gpK" secondAttribute="leading" id="SOc-27-7bd"/>
+                            <constraint firstItem="rhx-yC-qiq" firstAttribute="top" secondItem="dPP-Fb-lng" secondAttribute="bottom" id="UIg-Dr-xgV"/>
                             <constraint firstItem="rhx-yC-qiq" firstAttribute="top" secondItem="7RX-N9-dtD" secondAttribute="bottom" constant="20" id="ZhF-0y-Rnf"/>
                             <constraint firstItem="7RX-N9-dtD" firstAttribute="top" secondItem="PHD-hJ-EkX" secondAttribute="bottom" constant="20" id="xT1-Ue-Qed"/>
                         </constraints>
@@ -402,6 +416,7 @@
                         <outlet property="debugLabel" destination="O2D-zH-anV" id="LLa-aE-Yyn"/>
                         <outlet property="findLocationButton" destination="3eC-Ac-hwX" id="nPP-e4-JEm"/>
                         <outlet property="iconImage" destination="JRs-bV-Y30" id="RcJ-Dc-Mvm"/>
+                        <outlet property="loadingView" destination="dPP-Fb-lng" id="iLF-RF-Svi"/>
                         <outlet property="locationField" destination="JSV-f5-BBG" id="fy2-aG-VcD"/>
                         <outlet property="urlField" destination="eg5-tL-3WF" id="66L-Ot-Tfn"/>
                     </connections>

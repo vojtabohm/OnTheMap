@@ -15,6 +15,8 @@ struct StudentLocation {
     let longitude: Double
     let mediaURL: String
     
+    static var studentLocations: [StudentLocation]? = nil
+    
     init(dictionary: [String:Any]) {
         self.firstName = dictionary["firstName"] as? String ?? "[No First Name]"
         self.lastName = dictionary["lastName"] as? String ?? "[No Last Name]"

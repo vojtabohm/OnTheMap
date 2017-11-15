@@ -42,7 +42,7 @@ extension TabViewController {
 
 extension TabViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let urlString = ParseClient.shared.studentLocations?[indexPath.row].mediaURL else {
+        guard let urlString = StudentLocation.studentLocations?[indexPath.row].mediaURL else {
             return
         }
         
@@ -59,7 +59,7 @@ extension TabViewController: UITableViewDelegate {
 
 extension TabViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = ParseClient.shared.studentLocations?.count else {
+        guard let count = StudentLocation.studentLocations?.count else {
             return 0
         }
         return count
@@ -67,7 +67,7 @@ extension TabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewPinCell") as! TableViewPinCell
-        cell.studentLocation = ParseClient.shared.studentLocations?[indexPath.row]
+        cell.studentLocation = StudentLocation.studentLocations?[indexPath.row]
         
         return cell
     }

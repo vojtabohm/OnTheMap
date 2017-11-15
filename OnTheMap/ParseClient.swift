@@ -26,8 +26,6 @@ class ParseClient: Client {
     //MARK: Properties
     
     static let shared = ParseClient()
-    
-    var studentLocations: [StudentLocation]? = nil
     var delegates = [ParseClientDelegate]()
     var error: String?
     var objectID: String?

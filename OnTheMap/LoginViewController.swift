@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         userDidTapView(self)
         setUIEnabled(false)
+        debugLabel.text = ""
         
         guard !usernameField.text!.isEmpty && !passwordField.text!.isEmpty else {
             debugLabel.text = "Username or Password empty"
