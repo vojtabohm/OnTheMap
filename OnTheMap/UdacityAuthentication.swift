@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit // UNFORTUNATELY I MUST IMPORT UIKIT FOR UIAPPLICATION OPEN TO SEPERATE THIS LOGIC FROM THE LOGINVIEWCONTROLLER
+import FBSDKLoginKit
 
 // Here are authenticate functions that use template functions from UdacityClient; seperated to another file to maintain readability
 
@@ -26,7 +27,7 @@ extension UdacityClient {
             "Content-Type":"application/json"
         ]
         
-        postSession(username: username, password: password, headers: headers, body: body) { (success, sessionID, key, errorString) in
+        postSession(headers: headers, body: body) { (success, sessionID, key, errorString) in
             if success {
                 self.sessionID = sessionID!
                 self.userID = key!
@@ -42,7 +43,7 @@ extension UdacityClient {
         }
     }
     
-    func postSession(username: String, password: String, headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
+    func postSession(headers: [String:Any], body: [String:Any], sessionCompletionHandler: @escaping (_ success: Bool, _ sessionID: String?, _ key: String?, _ errorString: String?) -> Void) {
         let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.Session, headers: headers, body: body, scheme: "https",isFromUdacity: true) { (result, error) in
             guard error == nil else {
                 if error!.localizedDescription.contains("connection") {
@@ -76,6 +77,34 @@ extension UdacityClient {
         }
     }
     
+    func logInWithFacebook(token: String, loginCompletionHandler: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        let body = [
+            "facebook_mobile":[
+                "access_token":token,
+            ]
+        ]
+        
+        let headers = [
+            "Accept":"application/json",
+            "Content-Type":"application/json"
+        ]
+        
+        postSession(headers: headers, body: body) { (success, sessionID, key, errorString) in
+            if success {
+                self.sessionID = sessionID!
+                self.userID = key!
+                self.getUserData()
+                DispatchQueue.main.async {
+                    loginCompletionHandler(true, nil)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    loginCompletionHandler(false, NSError(domain: "failed", code: 1, userInfo: [NSLocalizedDescriptionKey:errorString!]))
+                }
+            }
+        }
+    }
+    
     func getUserData() {
         let _ = taskFor(method: .POST, parameters: [:], apiMethodPath: ApiMethods.User + "/\(userID!)", headers: [:], body: [:], scheme: "http", isFromUdacity: true) { (result, error) in
             guard error == nil else {
@@ -103,6 +132,9 @@ extension UdacityClient {
                 return
             }
 
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            
             DispatchQueue.main.async {
                 logOutCompletionHandler(true, nil)
             }

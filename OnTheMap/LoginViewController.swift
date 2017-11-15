@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
@@ -22,6 +23,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var debugLabel: UILabel!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signUpButton: UIButton!
+    @IBOutlet var facebookButton: FBSDKLoginButton!
     
     //MARK: Life Cycle
     
@@ -32,6 +34,11 @@ class LoginViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeFromAllNotifications()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        facebookButton.setNeedsDisplay()        
     }
     
     //MARK: Actions
@@ -74,6 +81,38 @@ class LoginViewController: UIViewController {
     }
 }
 
+//MARK: - LoginViewController (FBSDKLoginButtonDelegate)
+
+extension LoginViewController: FBSDKLoginButtonDelegate {
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        return
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        setUIEnabled(false)
+        
+        guard error == nil else {
+            debugLabel.text = error.localizedDescription
+            setUIEnabled(true)
+            return
+        }
+        
+        guard let token = result.token?.tokenString else {
+            setUIEnabled(true)
+            debugLabel.text = "User cancelled logging in"
+            return
+        }
+        
+        UdacityClient.shared.logInWithFacebook(token: token) { (success, error) in
+            if success {
+                self.completeLogin()
+            } else {
+                self.displayError(error?.localizedDescription)
+            }
+        }
+    }
+}
 
 //MARK: - LoginViewController (TextField Delegate)
 
@@ -123,6 +162,7 @@ extension LoginViewController {
     func configure() {
         usernameField.delegate = self
         passwordField.delegate = self
+        facebookButton.delegate = self
         
         subscribeToNotification(.UIKeyboardWillShow, selector: #selector(keyboardWillShow))
         subscribeToNotification(.UIKeyboardWillHide, selector: #selector(keyboardWillHide))
@@ -140,6 +180,7 @@ extension LoginViewController {
         passwordField.isEnabled = enabled
         loginButton.isEnabled = enabled
         signUpButton.isEnabled = enabled
+        facebookButton.isEnabled = enabled
         
         if enabled {
             loginButton.alpha = 1.0

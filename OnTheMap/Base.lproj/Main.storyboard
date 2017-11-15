@@ -71,8 +71,15 @@
                                             <action selector="loginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XwN-Eg-oXI"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eeh-gQ-MrZ" customClass="FBSDKLoginButton">
+                                        <rect key="frame" x="0.0" y="314" width="288" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Krz-wS-1KR"/>
+                                        </constraints>
+                                        <state key="normal" title="Faceboook"/>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="feJ-2x-H4i">
-                                        <rect key="frame" x="0.0" y="314" width="288" height="18"/>
+                                        <rect key="frame" x="0.0" y="384" width="288" height="18"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DON'T HAVE AN ACCOUNT?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qh7-Fb-AZe">
                                                 <rect key="frame" x="0.0" y="0.0" width="200.5" height="18"/>
@@ -91,7 +98,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xt-4p-NuB">
-                                        <rect key="frame" x="0.0" y="342" width="288" height="206"/>
+                                        <rect key="frame" x="0.0" y="412" width="288" height="136"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="textColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.1764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -115,6 +122,7 @@
                     </view>
                     <connections>
                         <outlet property="debugLabel" destination="7Xt-4p-NuB" id="y8N-01-NTY"/>
+                        <outlet property="facebookButton" destination="eeh-gQ-MrZ" id="ctN-Ho-R9H"/>
                         <outlet property="loginButton" destination="JJj-Go-iyW" id="xet-uj-H5z"/>
                         <outlet property="logoImageView" destination="xbp-Dz-M70" id="4D0-4y-iak"/>
                         <outlet property="passwordField" destination="sGH-1p-23n" id="U07-ql-NI1"/>
